@@ -123,7 +123,7 @@ class Configuration(ConfigObject):
 
     self.line_ending = get_default(line_ending, "unix")
     self.command_case = get_default(command_case, "lower")
-    assert self.command_case in ("lower", "upper", "unchanged")
+    assert self.command_case in ("lower", "upper", "exact", "unchanged")
 
     self.keyword_case = get_default(keyword_case, "unchanged")
     assert self.keyword_case in ("lower", "upper", "unchanged")
@@ -200,7 +200,7 @@ class Configuration(ConfigObject):
 
 VARCHOICES = {
     'line_ending': ['windows', 'unix', 'auto'],
-    'command_case': ['lower', 'upper', 'unchanged'],
+    'command_case': ['lower', 'upper', 'exact', 'unchanged'],
     'keyword_case': ['lower', 'upper', 'unchanged'],
 }
 

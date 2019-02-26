@@ -101,7 +101,7 @@ class CommandSpec(dict):
                      .format(key, type(subspec)))
 
   def add(self, name, pargs=None, flags=None, kwargs=None):
-    self[name] = CommandSpec(name, pargs, flags, kwargs)
+    self[name.lower()] = CommandSpec(name, pargs, flags, kwargs)
 
   def add_conditional(self, name):
     self[name] = make_conditional_spec(name)
@@ -582,4 +582,15 @@ def add_standard_nonbuiltins(fn_spec):
       "write_basic_package_version_file", flags=[], kwargs={
           "COMPATIBILITY": 1,
           "VERSION": 1
+      })
+
+  fn_spec.add(
+      "ExternalProject_Add", pargs=1, kwargs={
+        "PREFIX": 1,
+        "TMP_DIR": 1,
+        "STAMP_DIR": 1,
+        "DOWNLOAD_DIR": 1,
+        "SOURCE_DIR": 1,
+        "BINARY_DIR": 1,
+        "INSTALL_DIR": 1
       })

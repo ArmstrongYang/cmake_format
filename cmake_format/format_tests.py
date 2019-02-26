@@ -845,6 +845,26 @@ class TestCanonicalFormatting(unittest.TestCase):
       foo(bar baz)
       """)
 
+    config_dict = self.config.as_dict()
+    config_dict.pop('command_case')
+    self.config = configuration.Configuration(**config_dict)
+
+    self.do_format_test("""\
+      ExternalProject_Add(foobar)
+      """, """\
+      externalproject_add(foobar)
+      """)
+
+    config_dict = self.config.as_dict()
+    config_dict['command_case'] = 'exact'
+    self.config = configuration.Configuration(**config_dict)
+
+    self.do_format_test("""\
+      externalproject_add(foobar)
+      """, """\
+      ExternalProject_Add(foobar)
+      """)
+
   def test_command_case(self):
     self.do_format_test(
         """\

@@ -405,6 +405,13 @@ class ScalarNode(LayoutNode):
       command_case = config.resolve_for_command("command_case", token.spelling)
       if command_case in ("lower", "upper"):
         spelling = getattr(token.spelling, command_case)()
+      elif command_case == "exact":
+        command_key = token.spelling.lower()
+        if command_key in config.fn_spec:
+          spelling = config.fn_spec[command_key].name
+        else:
+          spelling = token.spelling
+
     elif (self.type in (NodeType.KEYWORD, NodeType.FLAG)
           and config.keyword_case in ("lower", "upper")):
       spelling = getattr(token.spelling, config.keyword_case)()
